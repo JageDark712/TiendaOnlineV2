@@ -68,7 +68,7 @@ namespace TiendaOnlineV2.Web.Controllers
                 {
                     if (dbUpdateException.InnerException.Message.Contains("duplicate"))
                     {
-                        ModelState.AddModelError(string.Empty, "hay un registro con el mismo nombre.");
+                        ModelState.AddModelError(string.Empty, "Hay un registro con el mismo nombre.");
                     }
                     else
                     {
