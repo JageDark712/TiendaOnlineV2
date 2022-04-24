@@ -22,6 +22,30 @@ namespace TiendaOnlineV2.Web.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("TiendaOnlineV2.Web.Models.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<Guid>("ImageId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Categories");
+                });
+
             modelBuilder.Entity("TiendaOnlineV2.Web.Models.City", b =>
                 {
                     b.Property<int>("Id")
@@ -33,6 +57,9 @@ namespace TiendaOnlineV2.Web.Migrations
                     b.Property<int?>("DepartmentId")
                         .HasColumnType("int");
 
+                    b.Property<int>("IdDepartment")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -42,7 +69,7 @@ namespace TiendaOnlineV2.Web.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.HasIndex("Name")
+                    b.HasIndex("Name", "IdDepartment")
                         .IsUnique();
 
                     b.ToTable("Cities");
@@ -80,6 +107,9 @@ namespace TiendaOnlineV2.Web.Migrations
                     b.Property<int?>("CountryId")
                         .HasColumnType("int");
 
+                    b.Property<int>("IdCountry")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -89,10 +119,69 @@ namespace TiendaOnlineV2.Web.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.HasIndex("Name")
+                    b.HasIndex("Name", "IdCountry")
                         .IsUnique();
 
                     b.ToTable("Departments");
+                });
+
+            modelBuilder.Entity("TiendaOnlineV2.Web.Models.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsStarred")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("TiendaOnlineV2.Web.Models.ProductImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<Guid>("ImageId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductImages");
                 });
 
             modelBuilder.Entity("TiendaOnlineV2.Web.Models.City", b =>
@@ -109,6 +198,22 @@ namespace TiendaOnlineV2.Web.Migrations
                         .HasForeignKey("CountryId");
                 });
 
+            modelBuilder.Entity("TiendaOnlineV2.Web.Models.Product", b =>
+                {
+                    b.HasOne("TiendaOnlineV2.Web.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId");
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("TiendaOnlineV2.Web.Models.ProductImage", b =>
+                {
+                    b.HasOne("TiendaOnlineV2.Web.Models.Product", null)
+                        .WithMany("ProductImages")
+                        .HasForeignKey("ProductId");
+                });
+
             modelBuilder.Entity("TiendaOnlineV2.Web.Models.Country", b =>
                 {
                     b.Navigation("Departments");
@@ -117,6 +222,11 @@ namespace TiendaOnlineV2.Web.Migrations
             modelBuilder.Entity("TiendaOnlineV2.Web.Models.Department", b =>
                 {
                     b.Navigation("Cities");
+                });
+
+            modelBuilder.Entity("TiendaOnlineV2.Web.Models.Product", b =>
+                {
+                    b.Navigation("ProductImages");
                 });
 #pragma warning restore 612, 618
         }

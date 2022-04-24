@@ -1,63 +1,50 @@
-﻿@model TiendaOnlineV2.Web.Models.Department
+﻿@model IEnumerable<TiendaOnlineV2.Web.Models.Category>
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Index";
 }
+
+<h1>Index</h1>
 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
 <link rel="stylesheet" href="~/lib/font-awesome/css/fontawesome.css" />
 <link rel="stylesheet" href="~/lib/Font-Awesome/css/regular.min.css">
 <link rel="stylesheet" href="~/lib/Font-Awesome/css/solid.min.css">
-<h2>Detalles</h2>
-<div>
-    <h4>Departamento</h4>
-    <br />
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CitiesNumber)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CitiesNumber)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="AddCity" asp-route-id="@Model.Id" class="btn btn-primary"><i class="fas fa-plus"></i>Agregar Ciudad</a>
-    <a asp-action="Details" asp-route-id="@Model.IdCountry" class="btn btn-success">Regresar</a>
-</div>
 <br />
+<p>
+    <a asp-action="Create" class="btn btn-primary"><i class="fas fa-plus"></i>Agregar Nueva Categoria</a>
+</p>
 <div class="row">
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Ciudad</h3>
+                <h3 class="panel-title">Categorias</h3>
             </div>
             <div class="panel-body">
                 <table class="table table-hover table-striped" id="MyTable">
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.Cities.FirstOrDefault().Name)
+                                @Html.DisplayNameFor(model => model.Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ImageFullPath)
                             </th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model.Cities)
+                        @foreach (var item in Model)
                         {
                             <tr>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Name)
                                 </td>
                                 <td>
-                                    <a asp-action="EditCity" asp-route-id="@item.Id" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                                    <img src="@item.ImageFullPath" style="width:100px; height:100px; height:auto;"/>
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary"><i class="fas fa-edit"></i></a>
                                     <button data-id="@item.Id" class="btn btn-danger deleteItem" data-toggle="modal" data-target="#deleteDialog"><i class="fas fa-trash"></i></button>
                                 </td>
                             </tr>
@@ -75,13 +62,11 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script src="/js/deleteDialog.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function ()
-        {
-            $('#MyTable').DataTable();
-            
-            // Delete item
-            sc_deleteDialog.openModal('deleteItem', true, 'btnYesDelete', '/Countries/DeleteCity/', false);
-        });
+    <script type="text/javascript"> $(document).ready(function ()
+    {
+        $('#MyTable').DataTable();
+        // Delete item
+        sc_deleteDialog.openModal('deleteItem', true, 'btnYesDelete', '/Categories/Delete/', false);
+    });
     </script>
 }
