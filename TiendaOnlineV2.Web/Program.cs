@@ -9,7 +9,7 @@ namespace TiendaOnlineV2.Web
     public class Program
     {
         public static void Main(string[] args)
-        {
+    {
             IWebHost host = CreateWebHostBuilder(args).Build();
             RunSeeding(host);
             host.Run();

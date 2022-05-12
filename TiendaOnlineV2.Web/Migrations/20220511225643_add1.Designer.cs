@@ -12,14 +12,14 @@ using TiendaOnlineV2.Web.Data;
 namespace TiendaOnlineV2.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220424054518_bd1")]
-    partial class bd1
+    [Migration("20220511225643_add1")]
+    partial class add1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.4")
+                .HasAnnotation("ProductVersion", "6.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);

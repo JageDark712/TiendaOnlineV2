@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TiendaOnlineV2.Web.Migrations
 {
-    public partial class bd1 : Migration
+    public partial class add1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
