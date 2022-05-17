@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using TiendaOnlineV2.Web.Data;
 using TiendaOnlineV2.Web.Helpers;
@@ -9,6 +9,7 @@ using TiendaOnlineV2.Web.Models;
 
 namespace TiendaOnlineV2.Web.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CategoriesController : Controller
     {
         private readonly ApplicationDbContext _context;

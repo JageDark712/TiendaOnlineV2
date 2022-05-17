@@ -5,7 +5,6 @@ namespace TiendaOnlineV2.Web.Models
 {
     public class Country
     {
-
         public int Id { get; set; }
         [Display(Name = "Pais")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]

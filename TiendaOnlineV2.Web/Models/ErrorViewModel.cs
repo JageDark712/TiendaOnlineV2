@@ -1,5 +1,3 @@
-using System;
-
 namespace TiendaOnlineV2.Web.Models
 {
     public class ErrorViewModel

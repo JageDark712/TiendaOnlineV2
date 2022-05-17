@@ -1,19 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using TiendaOnlineV2.Web.Data;
 using TiendaOnlineV2.Web.Models;
 
 namespace TiendaOnlineV2.Web.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CountriesController : Controller
     {
         private readonly ApplicationDbContext _context;
-
         public CountriesController(ApplicationDbContext context)
         {
             _context = context;
@@ -182,7 +181,7 @@ namespace TiendaOnlineV2.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddDepartment(Department department)
         {
-        if (ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 Country country = await _context.Countries
                     .Include(c => c.Departments)

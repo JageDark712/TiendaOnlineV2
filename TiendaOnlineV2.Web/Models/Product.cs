@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
@@ -16,7 +15,7 @@ namespace TiendaOnlineV2.Web.Models
         public string Description { get; set; }
         [DisplayFormat(DataFormatString = "{0:C2}")]
         public decimal Price { get; set; }
-        [Display(Name="Is Active")]
+        [Display(Name = "Is Active")]
         public bool IsActive { get; set; }
         [Display(Name = "Is Starred")]
         public bool IsStarred { get; set; }

@@ -1,11 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using TiendaOnlineV2.Web.Data.Entities;
 using TiendaOnlineV2.Web.Models;
 
 namespace TiendaOnlineV2.Web.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<User>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
         public DbSet<Category> Categories { get; set; }
@@ -14,6 +16,9 @@ namespace TiendaOnlineV2.Web.Data
         public DbSet<City> Cities { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -9,7 +9,7 @@ namespace TiendaOnlineV2.Web
     public class Program
     {
         public static void Main(string[] args)
-    {
+        {
             IWebHost host = CreateWebHostBuilder(args).Build();
             RunSeeding(host);
             host.Run();
@@ -18,9 +18,9 @@ namespace TiendaOnlineV2.Web
         private static void RunSeeding(IWebHost host)
         {
             IServiceScopeFactory scopeFactory = host.Services.GetService<IServiceScopeFactory>();
-            using (IServiceScope scope = scopeFactory.CreateScope())
+            using (IServiceScope? scope = scopeFactory.CreateScope())
             {
-                SeedDb seeder = scope.ServiceProvider.GetService<SeedDb>();
+                SeedDb? seeder = scope.ServiceProvider.GetService<SeedDb>();
                 seeder.SeedAsync().Wait();
             }
         }

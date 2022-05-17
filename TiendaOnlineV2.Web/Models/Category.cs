@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace TiendaOnlineV2.Web.Models
 {
     public class Category
-    {
+    {   
         public int Id { get; set; }
         [Display(Name = "Categoria")]
         [MaxLength(50)]
@@ -15,7 +15,7 @@ namespace TiendaOnlineV2.Web.Models
         //TODO: Pending to put the correct paths
         [Display(Name = "Image")]
         public string ImageFullPath => ImageId == Guid.Empty ?
-            $"https://localhost:44390/images/noimage.png" :
-            $"https://Tiendaonline.Web.blob.core.windows.net/categories/{ImageId}";
+            $"https://localhost:5001/images/noimage.png" :
+            $"https://tiendaonlinev2.blob.core.windows.net/categories/{ImageId}";
     }
 }
